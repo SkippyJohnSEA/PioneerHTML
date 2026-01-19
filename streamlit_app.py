@@ -24,13 +24,14 @@ if script_info["needs_target"]:
 
 if uploaded and st.button("Run"):
     input_path = save_uploaded_file(uploaded)
+    original_name = uploaded.name  
 
     func = script_info["func"]
 
     if script_info["needs_target"]:
-        output_path = func(input_path, target_filename)
+        output_path = func(input_path, original_name, target_filename)
     else:
-        output_path = func(input_path)
+        output_path = func(input_path, original_name)
 
     # Read generated HTML
     with open(output_path, "r", encoding="utf-8") as f:

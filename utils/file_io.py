@@ -14,6 +14,19 @@ def save_uploaded_file(uploaded_file):
         f.write(uploaded_file.read())
     return temp_name
 
-def make_output_html_filename(input_path):
-    base = os.path.splitext(input_path)[0]
-    return base + ".html"
+def build_output_filename(original_name, extension=".html"):
+    """
+    Creates a collision-safe output filename inside temp/.
+    Example: SocialList.html, SocialList_1.html, SocialList_2.html
+    """
+    ensure_temp_dir()
+
+    base, _ = os.path.splitext(original_name)
+    candidate = os.path.join(TEMP_DIR, base + extension)
+
+    counter = 1
+    while os.path.exists(candidate):
+        candidate = os.path.join(TEMP_DIR, f"{base}_{counter}{extension}")
+        counter += 1
+
+    return candidate

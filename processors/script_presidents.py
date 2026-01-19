@@ -1,7 +1,7 @@
 import os
 import math
 import pandas as pd
-from utils.file_io import make_output_html_filename
+from utils.file_io import build_output_filename
 from pathlib import Path
 
 def read_pairs_from_excel(xlsx_path):
@@ -107,8 +107,8 @@ def write_html_to_file(html, output_path):
 # ---------------------------------------------------------
 # Public run() function for Streamlit integration
 # ---------------------------------------------------------
-def run(input_path):
-    output_path = make_output_html_filename(input_path)
+def run(input_path, original_name):
+    output_path = build_output_filename(original_name, ".html")
 
     pairs = read_pairs_from_excel(input_path)
     columns, rows = split_into_columns(pairs, num_columns=4)

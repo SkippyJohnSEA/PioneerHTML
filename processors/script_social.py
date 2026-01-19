@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 import html
 import os
-from utils.file_io import make_output_html_filename
+from utils.file_io import build_output_filename
 
 # ---------------------------------------------------------
 # Read Excel and return list of (title, description)
@@ -122,8 +122,8 @@ def generate_full_html(excel_path):
 # ---------------------------------------------------------
 # Public run() function for Streamlit integration
 # ---------------------------------------------------------
-def run(input_path):
-    output_path = make_output_html_filename(input_path)
+def run(input_path, original_name):
+    output_path = build_output_filename(original_name, ".html")
     html_output = generate_full_html(input_path)
 
     with open(output_path, "w", encoding="utf-8") as f:
