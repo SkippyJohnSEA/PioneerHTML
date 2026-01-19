@@ -9,7 +9,7 @@ SCRIPTS = {
         "func": script_calendar.run,
         "needs_target": False
     },
-    "Calendar Accordion": {
+    "Presidents Table": {
         "func": script_presidents.run,
         "needs_target": False
     }
