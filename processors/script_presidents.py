@@ -2,13 +2,8 @@ import os
 import math
 import argparse
 import pandas as pd
-
-parser = argparse.ArgumentParser(description="Create the Previous Presidents html table")
-parser.add_argument("filename", nargs="?", default="presidents_men.xlsx", help="Input file")
-
-args = parser.parse_args()
-
-#print("File:", args.filename)
+from utils.file_io import make_output_html_filename
+from pathlib import Path
 
 def read_pairs_from_excel(xlsx_path):
     """Read (year, name) pairs from an Excel file with columns 'Year' and 'Name'."""
@@ -111,18 +106,13 @@ def write_html_to_file(html, output_path):
 
 
 # ---------------------------------------------------------
-# MAIN EXECUTION EXAMPLE
+# Write output to accordian_out.html
 # ---------------------------------------------------------
+def run(input_path):
+    output_path = make_output_html_filename(input_path)
+    html_output = generate_full_html(input_path)
 
-if __name__ == "__main__":
-    input_xlsx = args.filename
-    # Make output filename match input, but with .html
-    base, _ = os.path.splitext(input_xlsx)
-    output_html = base + ".html"
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(html_output)
 
-    pairs = read_pairs_from_excel(input_xlsx)
-    columns, rows = split_into_columns(pairs, num_columns=4)
-    html = generate_html(columns, rows)
-    write_html_to_file(html, output_html)
-
-    print(f"HTML table written to {output_html}")
+    return output_path
