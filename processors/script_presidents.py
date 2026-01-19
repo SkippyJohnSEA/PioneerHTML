@@ -112,9 +112,7 @@ def run(input_path):
 
     pairs = read_pairs_from_excel(input_path)
     columns, rows = split_into_columns(pairs, num_columns=4)
-    html = generate_html(columns, rows)
-
-    html_output = generate_html(input_path)
+    html_output = generate_html(columns, rows)
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html_output)
