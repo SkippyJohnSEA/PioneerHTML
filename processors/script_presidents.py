@@ -26,7 +26,7 @@ def split_into_columns(pairs, num_columns=4):
     return [pairs[i*rows:(i+1)*rows] for i in range(num_columns)], rows
 
 
-def generate_html(columns, rows):
+def generate_full_html(columns, rows):
     """Generate the full HTML table string."""
     html = []
 
