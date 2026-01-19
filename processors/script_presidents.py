@@ -1,6 +1,5 @@
 import os
 import math
-import argparse
 import pandas as pd
 from utils.file_io import make_output_html_filename
 from pathlib import Path
@@ -106,7 +105,7 @@ def write_html_to_file(html, output_path):
 
 
 # ---------------------------------------------------------
-# Write output to accordian_out.html
+# Public run() function for Streamlit integration
 # ---------------------------------------------------------
 def run(input_path):
     output_path = make_output_html_filename(input_path)

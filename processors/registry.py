@@ -8,9 +8,5 @@ SCRIPTS = {
     "Calendar Accordion": {
         "func": script_calendar.run,
         "needs_target": False
-    },
-    "Past Presidents Table": {
-        "func": script_presidents.run,
-        "needs_target": False
     }
 }
