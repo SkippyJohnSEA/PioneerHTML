@@ -105,7 +105,7 @@ def write_html_to_file(html, output_path):
 
 
 # ---------------------------------------------------------
-# Public run() function for Streamlit integration
+# Public run() function for Streamlit integration 
 # ---------------------------------------------------------
 def run(input_path, original_name):
     output_path = build_output_filename(original_name, ".html")
