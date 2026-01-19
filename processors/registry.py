@@ -1,4 +1,4 @@
-from . import script_social, script_calendar, script_presidents
+from . import script_president, script_social, script_calendar
 
 SCRIPTS = {
     "Social Events Accordion": {
@@ -10,7 +10,7 @@ SCRIPTS = {
         "needs_target": False
     },
     "Presidents Table": {
-        "func": script_presidents.run, # now expects (input_path, original_name)
+        "func": script_president.run, # now expects (input_path, original_name)
         "needs_target": False
     }
 }
