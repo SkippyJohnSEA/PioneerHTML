@@ -6,7 +6,7 @@ from pathlib import Path
 
 def read_pairs_from_excel(xlsx_path):
     """Read (year, name) pairs from an Excel file with columns 'Year' and 'Name'."""
-    df = pd.read_excel(xlsx_path, engine="openpyxl")
+    df = pd.read_excel(xlsx_path, sheet_name="Presidents", engine="openpyxl")
 
     # Ensure required columns exist
     df = df[["Year", "Name"]]

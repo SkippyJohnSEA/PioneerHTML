@@ -8,7 +8,7 @@ from utils.file_io import build_output_filename
 # Read Excel and return list of (title, description)
 # ---------------------------------------------------------
 def read_excel_rows(path):
-    df = pd.read_excel(path)
+    df = pd.read_excel(path, sheet_name="Events")
 
     rows = []
     for _, row in df.iterrows():

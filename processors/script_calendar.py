@@ -77,7 +77,7 @@ def format_day_or_range(start, end):
 # Read Excel and group rows by accordion title
 # ---------------------------------------------------------
 def read_excel_grouped(path):
-    df = pd.read_excel(path)
+    df = pd.read_excel(path, sheet_name="Events")
 
     groups = defaultdict(list)
 
