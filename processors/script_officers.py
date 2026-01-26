@@ -113,9 +113,9 @@ def write_html_to_file(html, output_path):
 def run(input_path, original_name):
     output_path = build_output_filename(original_name, ".html")
 
-    pairs = read_pairs_from_excel(input_xlsx)
+    pairs = read_pairs_from_excel(input_path)
     columns, rows = split_into_columns(pairs, num_columns=num_table_columns)
-    html = generate_html(columns, rows)
+    html_output = generate_html(columns, rows)
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html_output)
