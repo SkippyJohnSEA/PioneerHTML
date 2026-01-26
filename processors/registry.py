@@ -12,5 +12,9 @@ SCRIPTS = {
     "Presidents Table": {
         "func": script_president.run, # now expects (input_path, original_name)
         "needs_target": False
+    },
+        "Officers Table": {
+        "func": script_officers.run, # now expects (input_path, original_name)
+        "needs_target": False
     }
 }
