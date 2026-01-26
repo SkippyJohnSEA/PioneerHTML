@@ -1,4 +1,4 @@
-from . import script_president, script_social, script_calendar
+from . import script_president, script_social, script_calendar, script_officers
 
 SCRIPTS = {
     "Social Events Accordion": {
