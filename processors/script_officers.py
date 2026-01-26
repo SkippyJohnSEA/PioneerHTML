@@ -34,27 +34,31 @@ def generate_html(columns, rows):
     html.append("""
 <style>
   table.eight-col {
-    width: 35%;
+    width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
     font-family: Arial, sans-serif;
   }
 
+  /* Header cells */
   table.eight-col th {
-    padding: 2px 2px;
+    padding: 4px;
     border: 2px solid #fff;
     background-color: #c8c09e;
     color: #000;
     font-weight: bold;
     text-align: left;
-    font-size: 19px;
+    font-size: 18px;     /* HEADER SIZE */
   }
 
+  /* Data cells */
   table.eight-col td {
-    padding: 4px 4px;
+    padding: 4px;
     border: 2px solid #fff;
-    font-size: 19px;
+    font-size: 17px;     /* BODY SIZE */
   }
 
+  /* Row striping */
   table.eight-col tr:nth-child(odd) td {
     background-color: #c8c09e;
     color: #000;
@@ -65,15 +69,16 @@ def generate_html(columns, rows):
     color: #000;
   }
 
-  table.eight-col td:nth-child(even),
-  table.eight-col th:nth-child(even) {
-    width: 55%;
-    font-weight: bold;
+  /* Column widths */
+  table.eight-col th:nth-child(1),
+  table.eight-col td:nth-child(1) {
+    width: 45%;
   }
 
-  table.eight-col td:nth-child(odd),
-  table.eight-col th:nth-child(odd) {
-    width: 45%;
+  table.eight-col th:nth-child(2),
+  table.eight-col td:nth-child(2) {
+    width: 55%;
+    font-weight: bold;
   }
 </style>
 
