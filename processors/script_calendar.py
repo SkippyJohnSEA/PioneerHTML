@@ -74,6 +74,26 @@ def format_day_or_range(start, end):
     return str(start)
 
 # ---------------------------------------------------------
+# Safe sorting for dates within a month
+# ---------------------------------------------------------
+def sort_key(row):
+    raw_start, raw_end, _, _, _ = row
+
+    start_dt = pd.to_datetime(raw_start, errors="coerce")
+    end_dt   = pd.to_datetime(raw_end, errors="coerce")
+
+    # Duration: if no end date, treat as 0-day event
+    if pd.isna(start_dt):
+        return (pd.Timestamp.max, 999999)  # push invalid dates to bottom
+
+    if pd.isna(end_dt):
+        duration = 0
+    else:
+        duration = (end_dt - start_dt).days
+
+    return (start_dt, duration)
+
+# ---------------------------------------------------------
 # Read Excel and group rows by accordion title
 # ---------------------------------------------------------
 def read_excel_grouped(path):
@@ -98,22 +118,26 @@ def read_excel_grouped(path):
             #Determine Dates of event
             try:
                 date = format_date_or_range(raw_date, raw_end_date)
-                # date = pd.to_datetime(raw_date).strftime("%B %d").lstrip("0")
             except:
                 date = str(raw_date)
             try:
                 day = format_day_or_range(raw_date, raw_end_date)
-                #day = pd.to_datetime(raw_date).strftime("%A")
             except:
-                date = str(raw_date)
+                day = ""
         else:
             title = "Untitled"
             date = ""
-            day = " "
+            day = ""
         
         desc = str(row["Description"])
 
-        groups[title].append((date, day, desc))
+        # Store the raw start date so we can sort later
+        groups[title].append((raw_date, raw_end_date, date, day, desc))
+
+    # 🔥 Sort each month by actual date and duration
+    for title in groups:
+        #groups[title].sort(key=lambda x: pd.to_datetime(x[0]))
+        groups[title].sort(key=sort_key)
 
     return groups
 
@@ -135,7 +159,7 @@ def build_table(rows):
             <tbody>
     """)
 
-    for i, (date, day, desc) in enumerate(rows):
+    for i, (_, _, date, day, desc) in enumerate(rows):
         row_class = "even-row" if i % 2 == 0 else "odd-row"
         html.append(f"""
                 <tr class="{row_class}">
@@ -188,12 +212,23 @@ def build_accordion_item(title, table_html, index, accordion_id):
 # ---------------------------------------------------------
 # Build the full HTML document
 # ---------------------------------------------------------
+
+def safe_title_to_dt(title):
+    try:
+        return pd.to_datetime(title, format="%B %Y")
+    except:
+        return pd.Timestamp.max   # push non-dates to the end
+
 def generate_full_html(excel_path):
     groups = read_excel_grouped(excel_path)
+
     accordion_id = "accordionMaster"
 
     accordion_items = []
-    for idx, (title, rows) in enumerate(groups.items(), start=1):
+
+    sorted_groups = sorted(groups.items(), key=lambda item: safe_title_to_dt(item[0]))
+
+    for idx, (title, rows) in enumerate(sorted_groups, start=1):
         table_html = build_table(rows)
         accordion_items.append(build_accordion_item(title, table_html, idx, accordion_id))
 
