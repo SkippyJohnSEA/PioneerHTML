@@ -293,11 +293,11 @@ def generate_full_html(excel_path):
         }}
 
         .col-day {{
-            width: 8%;
+            width: 9%;
         }}
 
         .col-desc {{
-            width: 80%;
+            width: 79%;
         }}
 
         .even-row {{
